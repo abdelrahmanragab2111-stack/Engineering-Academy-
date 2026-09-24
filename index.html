@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engineering Academy — احجز مكانك</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1d2433; --muted:#6b7385; --line:#e5e1d8;
+  --brand:#0f766e; --brand-ink:#ffffff; --accent:#f59e0b; --wa:#16a34a; --red:#dc2626;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161f; --card:#1b2130; --ink:#eef1f7; --muted:#9aa3b8; --line:#2a3246;
+    --brand:#2dd4bf; --brand-ink:#08221f; --accent:#fbbf24; --wa:#22c55e; --red:#f87171;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161f; --card:#1b2130; --ink:#eef1f7; --muted:#9aa3b8; --line:#2a3246;
+  --brand:#2dd4bf; --brand-ink:#08221f; --accent:#fbbf24; --wa:#22c55e; --red:#f87171;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.7;padding-bottom:90px}
+.hero{background:linear-gradient(135deg,var(--brand),#0b3b4a);color:#fff;padding:44px 20px 66px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:clamp(26px,6vw,42px);font-weight:800}
+.hero p{margin:0 auto 16px;max-width:560px;opacity:.93}
+.offers{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 18px;max-width:760px}
+.offer{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:8px 14px;font-size:13.5px;font-weight:700}
+.offer b{color:var(--accent)}
+main{max-width:1100px;margin:-30px auto 0;padding:0 16px 30px}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.filters input{flex:1;min-width:180px;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.crumbs{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:16px 0 6px;font-size:14px}
+.crumbs button{background:none;border:0;color:var(--brand);font-weight:700;cursor:pointer;padding:4px 2px;font:inherit}
+.crumbs span{color:var(--muted)}
+.crumbs button:last-child,.crumbs .cur{color:var(--ink);font-weight:700}
+h2.pagetitle{font-size:21px;margin:6px 0 14px}
+.tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:8px;align-items:center}
+.tile .ic{font-size:36px}
+.tile b{font-size:16px}
+.tile small{color:var(--muted);font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.cover{height:110px;display:flex;align-items:center;justify-content:center;font-size:48px;color:#fff;position:relative}
+.ribbon{position:absolute;top:9px;right:9px;background:var(--red);color:#fff;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:999px}
+.body{padding:15px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body h3{margin:0;font-size:18px}
+.body p{margin:0;color:var(--muted);font-size:13.5px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
+.segs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg{font:inherit;font-weight:700;font-size:12.5px;padding:7px 3px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.seg.on{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.price{font-size:20px;font-weight:800;color:var(--brand)}
+.old{font-size:13px;color:var(--muted);text-decoration:line-through;margin-inline-start:7px;font-weight:400}
+.limited{font-size:11.5px;color:var(--red);font-weight:700}
+.row{display:flex;gap:8px;margin-top:auto;padding-top:6px;flex-wrap:wrap}
+button,.btn{font:inherit;font-weight:700;border-radius:10px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;display:inline-block;text-align:center}
+.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);flex:1}
+.wa{background:var(--wa);color:#fff;border-color:var(--wa)}
+.empty{text-align:center;color:var(--muted);padding:44px 10px}
+section.info{max-width:1100px;margin:0 auto;padding:0 16px 40px}
+h2.sec{font-size:22px;margin:26px 0 14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.step b{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#1d2433;align-items:center;justify-content:center;margin-bottom:6px}
+.place{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:13.5px;border-top:1px solid var(--line)}
+#visits{font-size:12px;opacity:.7;margin-top:6px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-start;justify-content:center;padding:calc(18px + env(safe-area-inset-top,0px)) 12px calc(18px + env(safe-area-inset-bottom,0px));overflow-y:auto;z-index:60}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:18px;width:100%;max-width:620px;padding:22px;position:relative}
+.modal .x{position:absolute;top:12px;left:12px;padding:4px 10px}
+.modal h2{margin:0 0 8px}
+.modal ul{padding-inline-start:20px;margin:6px 0}
+label{display:block;font-weight:600;margin:12px 0 4px;font-size:14px}
+.modal input[type=text],.modal input[type=tel]{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.citem{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--bg)}
+.citem .top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.citem select{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-top:6px;max-width:100%}
+.free{color:var(--wa);font-weight:800}
+.rm{color:var(--red);padding:4px 10px}
+.sum{border-top:2px dashed var(--line);margin-top:12px;padding-top:10px}
+.sum div{display:flex;justify-content:space-between;padding:2px 0}
+.total{font-size:20px;font-weight:800;color:var(--brand)}
+.hint{background:color-mix(in srgb,var(--accent) 22%,transparent);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;margin:8px 0}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.payopt{border:2px solid var(--line);border-radius:12px;padding:10px;text-align:center;cursor:pointer;font-weight:700;background:var(--bg)}
+.payopt.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,transparent)}
+.paybox{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:14px}
+.paybox .num{font-size:20px;font-weight:800;direction:ltr;display:inline-block;letter-spacing:1px}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;text-decoration:none;font-weight:800;padding:12px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.25);border:0;font:inherit;font-weight:800;cursor:pointer}
+#cartFab{right:16px;background:var(--accent);color:#1d2433}
+#cartFab span{background:#1d2433;color:#fff;border-radius:999px;padding:0 8px;margin-inline-start:6px;font-size:13px}
+#waFab{left:16px;background:var(--wa);color:#fff}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🎓 Engineering Academy</h1>
+  <p>تحت إشراف دكتور عبدالرحمن رجب خليل.</p>
+  <p style="font-size:14px;opacity:.85">جميع المحاضرين دكاترة ومعيدين في جامعات مصرية مختلفة.</p>
+  <div class="offers"><div class="offer" id="visits">👁 جارِ حساب الزوار...</div></div>
+</header>
+
+<main id="courses">
+  <div class="filters">
+    <input id="q" type="search" placeholder="🔍 ابحث عن مادة في كل الكليات...">
+  </div>
+  <div class="crumbs" id="crumbs"></div>
+  <h2 class="pagetitle" id="pageTitle"></h2>
+  <div id="view"></div>
+  <div class="empty" id="empty" style="display:none">مفيش نتائج مطابقة.</div>
+</main>
+
+<section class="info">
+  <h2 class="sec">إزاي تحجز؟</h2>
+  <div class="steps">
+    <div class="step"><b>1</b><div><strong>اختار الكلية والقسم والفرقة</strong><br>ولو محتاج مادة معينة دور عليها في البحث.</div></div>
+    <div class="step"><b>2</b><div><strong>اختار نوع الكورس وأضف للسلة</strong><br>أونلاين، حضوري في السنتر، أو مسجل.</div></div>
+    <div class="step"><b>3</b><div><strong>ادفع وأكّد على واتساب</strong><br>كاش أو انستاباي، وابعت طلبك برسالة جاهزة.</div></div>
+  </div>
+  <div class="place">
+    <strong>📍 مكان السنتر</strong><br>
+    <span id="centerTxt"></span>
+  </div>
+</section>
+
+<footer>
+  للاستفسار والحجز: <a href="#" id="footWa" style="color:var(--brand);font-weight:700" dir="ltr">01155797977</a>
+</footer>
+
+<button class="fab" id="cartFab">🛒 السلة<span id="cartN">0</span></button>
+<a class="fab" id="waFab" href="#" target="_blank" rel="noopener">💬 واتساب</a>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+
+<script>
+/* ================= إعدادات عامة — عدّل هنا ================= */
+var WHATSAPP = "201155797977";
+var INSTAPAY = "01000883903";
+var ACADEMY  = "Engineering Academy";
+var CENTER   = "سنتر بروفيكسو — أمام بوابة الجامعة";
+var FREE_EVERY = 3;
+var OFFER_END = "8/10/2026";
+var TRIAL_END = "30/9/2026";
+var MODES = {
+  online:   { short:"أونلاين", label:"أونلاين",           icon:"💻", note:"شرح مباشر أونلاين" },
+  center:   { short:"حضوري",  label:"حضوري في السنتر",   icon:"🏫", note:"حضور في السنتر" },
+  recorded: { short:"مسجل",   label:"كورس مسجل",         icon:"🎬", note:"فيديوهات مسجلة تشاهدها في أي وقت" }
+};
+var DOC = "د. عبدالرحمن رجب خليل";
+
+/* ---------- بناء المواد ---------- */
+var PALETTE=["#1d4ed8,#312e81","#b45309,#7c2d12","#0f766e,#0b3b4a","#be185d,#581c87","#15803d,#14532d","#0369a1,#1e3a8a","#7c3aed,#4c1d95","#c2410c,#7f1d1d","#0891b2,#164e63","#a21caf,#3b0764","#65a30d,#365314","#ea580c,#7c2d12"];
+var EMOJI={"fluid":"💧","thermo":"🔥","heat":"♨️","design":"📐","numerical":"🔢","machinery":"⚙️","vibration":"📳","sustainability":"🌱","management":"📋","combustion":"🔥","air":"❄️","thermal":"⚡","compressible":"💨","linear":"➗","probability":"🎲","statistic":"📊","math":"➕","physics":"⚛️","calc":"∫","mechanics":"🔩","eng.material":"🧱","electrical":"🔌","complex":"🌀","random":"🎲","applied":"📊"};
+var leafCounter=0;
+function pickEmoji(title){var t=title.toLowerCase();for(var k in EMOJI){if(t.indexOf(k)>-1)return EMOJI[k]}return "📘"}
+function mkLeaf(id,title,instructor){
+  var c=PALETTE[leafCounter%PALETTE.length];leafCounter++;
+  return {id:id,title:title,emoji:pickEmoji(title),color:c,instructor:instructor||DOC,level:"",
+    desc:"شرح كامل لمادة "+title+" مع حل مسائل وامتحانات سابقة ومراجعة نهائية.",
+    topics:["شرح المنهج بالكامل","حل مسائل وامتحانات سابقة","مراجعة نهائية قبل الامتحان"],
+    videos:[], files:[]};
+}
+function subj(list){return list.map(function(a){return mkLeaf(a[0],a[1],a[2])})}
+function term(t1list,t2list){
+  return {children:{
+    t1:{label:"ترم أول",icon:"📘",subjects:subj(t1list)},
+    t2:{label:"ترم ثاني",icon:"📗",subjects:subj(t2list||[])}
+  }};
+}
+
+var TREE = {
+  eng:{label:"كلية الهندسة",icon:"🏛️",children:{
+    basic:Object.assign({label:"قسم العلوم الأساسية",icon:"🔬"},term([["basic-phys1","Physics 1"],["basic-drawing","Drawing","د. علي"],["basic-math1","Mathmatics 1"],["basic-mech1","Mechanics 1"],["basic-chem","Chemistry","م. ندى"],["basic-prog","Programming","م. وليد"]])),
+    mech:{label:"قسم ميكانيكا",icon:"⚙️",children:{
+      y1:Object.assign({label:"أولى قسم",icon:"1️⃣"},term([["mom-y1","Mechanics of materials"],["thermo1-y1","Thermo 1"],["engmat-y1","Eng.material"]])),
+      y2:Object.assign({label:"ثانية قسم",icon:"2️⃣"},term([["design1-y2","Design 1"],["num-y2","Numerical"],["fluid1-y2","Fluid 1"],["machinery-y2","Machinery"]])),
+      y3:Object.assign({label:"ثالثة قسم",icon:"3️⃣"},term([["vib-y3","Vibration"],["fluid2-y3","Fluid 2"],["sustain-y3","Sustainability"],["mgmt-y3","Management"]])),
+      y4:Object.assign({label:"رابعة قسم",icon:"4️⃣"},term([["heat2-y4","Heat 2"],["combustion-y4","Combustion"],["ac-y4","Air conditioning"],["thermalpower-y4","Thermal power"],["compressible-y4","Compressible"]]))
+    }},
+    elec:{label:"قسم كهرباء",icon:"⚡",subjects:subj([["elec-linalg","Linear Algebra and Complex Analysis"],["elec-prob","Probability and Random Variables"]])},
+    petro:{label:"قسم بتروكيماويات",icon:"🛢️",subjects:subj([["petro-fluid","Fluid"],["petro-thermo","Thermo"],["petro-heat","Heat transfer"],["petro-prob","Applied Probability and Statistics"]])},
+    civil:{label:"قسم مدني",icon:"🏗️",subjects:subj([["civil-fluid","Fluid"],["civil-ac","Air cond"]])},
+    computer:{label:"قسم كمبيوتر",icon:"💻",subjects:subj([["comp-fee","Fundamentals of Electrical Engineering"],["comp-linalg","Linear algebra"],["comp-prob","Probability"],["comp-stat","Statistical Methods for Computing"],["comp-num","Numerical"]])},
+    arch:Object.assign({label:"قسم عمارة",icon:"🏙️"},term([["arch-math1","Math 1"],["arch-phys1","Physics 1"]]))
+  }},
+  comp:{label:"كلية الحاسبات والذكاء الاصطناعي",icon:"🖥️",subjects:subj([["calc0","Calculus 0"],["calc1","Calculus 1"],["phys1-comp","Physics 1"]])}
+};
+var ROOT={label:"الرئيسية",children:TREE};
+
+/* عرض "مادتين ومادة هدية" شغال جوه دول بس */
+function markOffer(node){
+  if(node.subjects)node.subjects.forEach(function(l){l.offer=true});
+  if(node.children)Object.keys(node.children).forEach(function(k){markOffer(node.children[k])});
+}
+markOffer(TREE.eng.children.basic);
+markOffer(TREE.eng.children.arch);
+markOffer(TREE.comp);
+
+/* فهرسة كل المواد لأغراض البحث والسلة، مع مسار كل مادة (breadcrumb) */
+var ALL=[]; // {leaf, crumbs:[label,...]}
+(function index(node,path,crumbs){
+  if(node.subjects){node.subjects.forEach(function(l){ALL.push({leaf:l,crumbs:crumbs.slice()})});}
+  if(node.children){Object.keys(node.children).forEach(function(k){index(node.children[k],path.concat(k),crumbs.concat(node.children[k].label))});}
+})(ROOT,[],[]);
+var ALL_BY_ID={};ALL.forEach(function(x){ALL_BY_ID[x.leaf.id]=x});
+/* ============================================================ */
+
+function $(id){return document.getElementById(id)}
+function esc(s){var d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML}
+function safeUrl(u){return /^https?:\/\//i.test(u||"")?u:""}
+function wa(msg){return "https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg)}
+function findLeaf(id){return ALL_BY_ID[id]&&ALL_BY_ID[id].leaf}
+function leafCrumbs(id){return ALL_BY_ID[id]?ALL_BY_ID[id].crumbs:[]}
+
+$("waFab").href=wa("السلام عليكم، عندي استفسار عن الكورسات في "+ACADEMY);
+$("footWa").href=wa("السلام عليكم، عندي استفسار عن الكورسات");
+$("centerTxt").textContent=CENTER;
+
+/* ---------- زيارات تقريبية (بدون حسابات) ---------- */
+(function(){
+  try{
+    if(!sessionStorage.getItem("ea_counted")){
+      fetch("https://api.countapi.xyz/hit/engineering-academy-faroos/visits").then(function(r){return r.json()}).then(function(d){
+        if(d&&d.value)$("visits").textContent="👁 عدد الزيارات: "+d.value;
+      }).catch(function(){});
+      sessionStorage.setItem("ea_counted","1");
+    } else {
+      fetch("https://api.countapi.xyz/get/engineering-academy-faroos/visits").then(function(r){return r.json()}).then(function(d){
+        if(d&&d.value)$("visits").textContent="👁 عدد الزيارات: "+d.value;
+      }).catch(function(){});
+    }
+  }catch(e){}
+})();
+
+/* ---------- state ---------- */
+var path=[], query="", sel={}, cart=[], form={name:"",phone:"",pay:"cash"}, view="";
+try{var saved=JSON.parse(localStorage.getItem("ea_cart")||"[]");if(Array.isArray(saved))cart=saved.filter(function(x){return findLeaf(x.id)&&MODES[x.mode]})}catch(e){}
+function saveCart(){try{localStorage.setItem("ea_cart",JSON.stringify(cart))}catch(e){}}
+
+/* ---------- cart math (بدون أسعار؛ عرض مادتين + هدية داخل الفئات المؤهلة بس) ---------- */
+function calc(){
+  var items=cart.map(function(x,i){var c=findLeaf(x.id);return {i:i,c:c,mode:x.mode,free:false}});
+  var offerIdx=items.filter(function(x){return x.c.offer});
+  var nFree=Math.floor(offerIdx.length/FREE_EVERY);
+  offerIdx.forEach(function(x,pos){if((pos+1)%FREE_EVERY===0)x.free=true});
+  var freeCount=offerIdx.filter(function(x){return x.free}).length;
+  return {items:items,nFree:freeCount};
+}
+function updateFab(){$("cartN").textContent=cart.length}
+function addToCart(id,mode){
+  var f=cart.filter(function(x){return x.id===id})[0];
+  if(f)f.mode=mode;else cart.push({id:id,mode:mode});
+  saveCart();updateFab();renderView();
+  toast(f?"تم تغيير النوع في السلة":"تمت الإضافة للسلة 🛒");
+}
+function removeFromCart(id){cart=cart.filter(function(x){return x.id!==id});saveCart();updateFab();renderView();if(view==="cart")renderCart()}
+
+var toastT;
+function toast(m){var t=$("toast");if(!t){t=document.createElement("div");t.id="toast";t.style.cssText="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1d2433;color:#fff;padding:9px 18px;border-radius:999px;z-index:100;font-weight:700;font-size:14px";document.body.appendChild(t)}
+  t.textContent=m;t.style.display="block";clearTimeout(toastT);toastT=setTimeout(function(){t.style.display="none"},1800)}
+
+/* ---------- navigation ---------- */
+function walk(){var n=ROOT;for(var i=0;i<path.length;i++){n=n.children[path[i]]}return n}
+function nodeAt(p){var n=ROOT;for(var i=0;i<p.length;i++){n=n.children[p[i]]}return n}
+function countLeaves(node){if(node.subjects)return node.subjects.length;if(!node.children)return 0;var s=0;for(var k in node.children)s+=countLeaves(node.children[k]);return s}
+
+function renderCrumbs(){
+  var el=$("crumbs");el.innerHTML="";
+  var home=document.createElement("button");home.textContent="🏠 الرئيسية";home.onclick=function(){path=[];query="";$("q").value="";renderView()};
+  el.appendChild(home);
+  var n=ROOT;
+  path.forEach(function(k,i){
+    el.appendChild(document.createTextNode(" ‹ "));
+    var child=n.children[k];
+    var b=document.createElement("button");b.textContent=child.label;
+    (function(idx){b.onclick=function(){path=path.slice(0,idx+1);renderView()}})(i);
+    if(i===path.length-1)b.classList.add("cur");
+    el.appendChild(b);
+    n=child;
+  });
+}
+
+function makeSubjectCard(c){
+  var m=sel[c.id]||"online", inC=cart.filter(function(x){return x.id===c.id})[0];
+  var btnTxt=inC?(inC.mode===m?"✓ في السلة":"🔄 غيّر النوع"):"🛒 أضف للسلة";
+  var el=document.createElement("article");el.className="card";
+  el.innerHTML='<div class="cover" style="background:linear-gradient(135deg,'+c.color+')">'+c.emoji+(c.offer?'<span class="ribbon">🎁 مادتين ومادة هدية</span>':'')+'</div>'+
+    '<div class="body"><h3>'+esc(c.title)+'</h3><p>'+esc(c.desc)+'</p>'+
+    '<div class="meta"><span>👨‍🏫 '+esc(c.instructor)+'</span></div>'+
+    '<div class="segs">'+Object.keys(MODES).map(function(k){return '<button class="seg'+(k===m?' on':'')+'" data-m="'+k+'">'+MODES[k].icon+' '+MODES[k].short+'</button>'}).join("")+'</div>'+
+    (c.offer?'<div class="limited">⏳ عرض مادتين ومادة هدية سارٍ حتى '+esc(OFFER_END)+'</div>':'')+
+    (c.offer?'<button class="btn" data-t style="width:100%;background:color-mix(in srgb,var(--accent) 20%,transparent);border-color:var(--accent);font-size:13px">🎓 احجز حصة أولى مجاناً</button>':'')+
+    '<div class="row"><button data-d>التفاصيل</button><button class="primary" data-a>'+btnTxt+'</button></div></div>';
+  el.querySelectorAll(".seg").forEach(function(b){b.onclick=function(){sel[c.id]=b.dataset.m;renderView()}});
+  el.querySelector("[data-d]").onclick=function(){openDetails(c)};
+  el.querySelector("[data-a]").onclick=function(){if(inC&&inC.mode===m){openCart()}else addToCart(c.id,m)};
+  var tb=el.querySelector("[data-t]");if(tb)tb.onclick=function(){openTrial(c)};
+  return el;
+}
+
+function renderView(){
+  renderCrumbs();
+  var host=$("view"),title=$("pageTitle"),empty=$("empty");
+  host.innerHTML="";empty.style.display="none";
+
+  if(query.trim()){
+    var qq=query.trim().toLowerCase();
+    var res=ALL.filter(function(x){return x.leaf.title.toLowerCase().indexOf(qq)>-1});
+    title.textContent='نتائج البحث عن "'+query.trim()+'"';
+    empty.style.display=res.length?"none":"block";
+    var grid=document.createElement("div");grid.className="grid";
+    res.forEach(function(x){
+      var card=makeSubjectCard(x.leaf);
+      var note=document.createElement("div");note.style.cssText="font-size:12px;color:var(--muted);padding:0 15px 12px;margin-top:-8px";
+      note.textContent=x.crumbs.join(" ‹ ");
+      card.querySelector(".body").insertBefore(note,card.querySelector(".segs"));
+      grid.appendChild(card);
+    });
+    host.appendChild(grid);
+    return;
+  }
+
+  var node=walk();
+  if(node.children){
+    title.textContent=path.length?node.label||"":"اختار الكلية";
+    var tg=document.createElement("div");tg.className="tilegrid";
+    Object.keys(node.children).forEach(function(k){
+      var ch=node.children[k],n=countLeaves(ch);
+      var t=document.createElement("div");t.className="tile";
+      t.innerHTML='<div class="ic">'+(ch.icon||"📚")+'</div><b>'+esc(ch.label)+'</b><small>'+(n?n+" مادة":"قريباً")+'</small>';
+      t.onclick=function(){path=path.concat(k);renderView()};
+      tg.appendChild(t);
+    });
+    host.appendChild(tg);
+  } else if(node.subjects){
+    title.textContent=path.length?TREE[path[0]] && node.label ? node.label : (node.label||""):"";
+    if(!node.subjects.length){empty.textContent="مفيش مواد مضافة هنا لسه. تابعنا قريباً 🌱";empty.style.display="block";return}
+    var grid=document.createElement("div");grid.className="grid";
+    node.subjects.forEach(function(c){grid.appendChild(makeSubjectCard(c))});
+    host.appendChild(grid);
+  }
+}
+$("q").addEventListener("input",function(e){query=e.target.value;renderView()});
+
+/* ---------- modal ---------- */
+function openModal(html){$("modal").innerHTML='<button class="x" id="mx">✕</button>'+html;$("overlay").classList.add("open");$("mx").onclick=closeModal}
+function closeModal(){$("overlay").classList.remove("open");view=""}
+$("overlay").addEventListener("click",function(e){if(e.target===$("overlay"))closeModal()});
+
+function openDetails(c){
+  view="details";
+  var links=[].concat((c.videos||[]).filter(function(v){return safeUrl(v.url)}).map(function(v){return '<a class="btn" target="_blank" rel="noopener" href="'+esc(safeUrl(v.url))+'">▶ '+esc(v.name)+'</a>'}),
+                      (c.files||[]).filter(function(f){return safeUrl(f.url)}).map(function(f){return '<a class="btn" target="_blank" rel="noopener" href="'+esc(safeUrl(f.url))+'">📄 '+esc(f.name)+'</a>'})).join("");
+  var crumbs=leafCrumbs(c.id).join(" ‹ ");
+  openModal('<h2>'+c.emoji+' '+esc(c.title)+'</h2>'+
+    (crumbs?'<div class="meta"><span>'+esc(crumbs)+'</span></div>':'')+
+    '<div class="meta"><span>👨‍🏫 '+esc(c.instructor)+'</span></div>'+
+    '<p>'+esc(c.desc)+'</p><strong>هتتعلم إيه؟</strong><ul>'+c.topics.map(function(t){return '<li>'+esc(t)+'</li>'}).join("")+'</ul>'+
+    (links?'<div class="links">'+links+'</div>':'')+
+    (c.offer?'<div class="hint">🎁 المادة دي ضمن عرض "مادتين ومادة هدية" حتى '+esc(OFFER_END)+'</div>':'')+
+    (c.offer?'<div class="row"><button class="btn" id="trialBtn" style="width:100%;background:color-mix(in srgb,var(--accent) 20%,transparent);border-color:var(--accent)">🎓 احجز حصة أولى مجاناً (حتى '+esc(TRIAL_END)+')</button></div>':'')+
+    '<strong>اختار نوع الكورس:</strong>'+
+    Object.keys(MODES).map(function(k){return '<div class="citem"><div class="top"><span>'+MODES[k].icon+' <b>'+MODES[k].label+'</b><br><small style="color:var(--muted)">'+esc(MODES[k].note)+'</small></span></div><div class="row"><button class="primary" data-k="'+k+'">🛒 أضف للسلة</button></div></div>'}).join(""));
+  $("modal").querySelectorAll("[data-k]").forEach(function(b){b.onclick=function(){sel[c.id]=b.dataset.k;addToCart(c.id,b.dataset.k);closeModal()}});
+  var tb=$("trialBtn");if(tb)tb.onclick=function(){openTrial(c)};
+}
+
+/* ---------- free trial booking ---------- */
+function openTrial(c){
+  view="trial";
+  var crumbs=leafCrumbs(c.id).join(" ‹ ");
+  openModal('<h2>🎓 حجز حصة أولى مجاناً</h2>'+
+    '<div class="meta"><span>'+esc(c.title)+(crumbs?' — '+esc(crumbs):'')+'</span></div>'+
+    '<div class="hint">⏳ الحصص التجريبية المجانية متاحة للحجز حتى <b>'+esc(TRIAL_END)+'</b> فقط.</div>'+
+    '<label>الاسم</label><input type="text" id="tName" placeholder="اسمك بالكامل" autocomplete="name">'+
+    '<label>رقم الموبايل</label><input type="tel" id="tPhone" placeholder="01xxxxxxxxx" autocomplete="tel">'+
+    '<div class="row"><button class="primary wa" id="tSend" style="flex:1">💬 احجز الحصة على واتساب</button></div>');
+  $("tSend").onclick=function(){
+    var n=$("tName").value.trim(),p=$("tPhone").value.trim();
+    if(n.length<2||p.replace(/\D/g,"").length<8){alert("من فضلك اكتب الاسم ورقم موبايل صحيح");return}
+    var msg="السلام عليكم، عايز أحجز حصة أولى مجاناً في مادة: "+c.title+(crumbs?" ("+crumbs+")":"")+"\nالاسم: "+n+"\nالموبايل: "+p+"\n\n(الحصص التجريبية متاحة حتى "+TRIAL_END+")";
+    window.open(wa(msg),"_blank","noopener");
+    closeModal();
+  };
+}
+
+/* ---------- cart view ---------- */
+function openCart(){view="cart";openModal('<div id="cartBody"></div>');renderCart()}
+$("cartFab").onclick=openCart;
+
+function renderCart(){
+  var box=$("cartBody");if(!box)return;
+  if(!cart.length){box.innerHTML='<h2>🛒 السلة</h2><div class="empty">السلة فاضية. اختار المواد اللي تناسبك وأضفها.</div><div class="row"><button class="primary" id="cGo">تصفح المواد</button></div>';$("cGo").onclick=closeModal;return}
+  var r=calc(), hasCenter=r.items.some(function(x){return x.mode==="center"});
+  var offerCount=r.items.filter(function(x){return x.c.offer}).length;
+  var rest=FREE_EVERY-(offerCount%FREE_EVERY||FREE_EVERY);
+  var hint="";
+  if(offerCount){
+    hint=(offerCount%FREE_EVERY===0)?'<div class="hint">🎁 ممتاز! معاك '+r.nFree+' مادة مجاناً ضمن عرض مادتين ومادة هدية</div>':
+      '<div class="hint">🎁 أضف '+rest+(rest===1?' مادة':' مواد')+' كمان من نفس الفئة وخد مادة مجاناً (العرض حتى '+esc(OFFER_END)+')</div>';
+  }
+  var html='<h2>🛒 السلة ('+cart.length+')</h2>'+hint;
+  r.items.forEach(function(x){
+    var cr=leafCrumbs(x.c.id).join(" ‹ ");
+    html+='<div class="citem"><div class="top"><span><b>'+esc(x.c.title)+'</b>'+(cr?'<br><small style="color:var(--muted)">'+esc(cr)+'</small>':'')+'</span><span>'+(x.free?'<span class="free">هدية 🎁</span>':'')+'</span></div>'+
+      '<div class="top"><select data-id="'+x.c.id+'">'+Object.keys(MODES).map(function(k){return '<option value="'+k+'"'+(k===x.mode?' selected':'')+'>'+MODES[k].icon+' '+MODES[k].label+'</option>'}).join("")+'</select><button class="rm" data-rm="'+x.c.id+'">🗑 حذف</button></div></div>';
+  });
+  if(hasCenter)html+='<div class="paybox">📍 <b>مكان الحضور:</b> '+esc(CENTER)+'</div>';
+  html+='<label>الاسم</label><input type="text" id="fName" placeholder="اسمك بالكامل" autocomplete="name" value="'+esc(form.name)+'">'+
+    '<label>رقم الموبايل</label><input type="tel" id="fPhone" placeholder="01xxxxxxxxx" autocomplete="tel" value="'+esc(form.phone)+'">'+
+    '<label>طريقة الدفع</label><div class="pay"><div class="payopt'+(form.pay==="cash"?" on":"")+'" data-p="cash">💵 كاش</div><div class="payopt'+(form.pay==="insta"?" on":"")+'" data-p="insta">📲 انستاباي</div></div>'+
+    (form.pay==="insta"
+      ?'<div class="paybox">حوّل على انستاباي للرقم:<br><span class="num">'+INSTAPAY+'</span> <button id="cp" style="padding:4px 12px;margin-inline-start:6px">نسخ</button><br><small>هيتم تأكيد المبلغ معاك على واتساب، وبعد التحويل ابعت صورته مع الطلب.</small></div>'
+      :'<div class="paybox">الدفع كاش عند التسجيل'+(hasCenter?' في السنتر':'')+'، وفريقنا هيتواصل معاك على واتساب لتأكيد السعر والميعاد.</div>')+
+    '<div class="row"><button class="primary wa" id="send" style="flex:1">💬 أرسل الطلب على واتساب</button></div>'+
+    '<div class="row"><button id="clear" style="font-size:13px">إفراغ السلة</button></div>';
+  box.innerHTML=html;
+  box.querySelectorAll("select[data-id]").forEach(function(s){s.onchange=function(){cart.filter(function(x){return x.id===s.dataset.id})[0].mode=s.value;saveCart();renderView();renderCart()}});
+  box.querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){removeFromCart(b.dataset.rm)}});
+  box.querySelectorAll(".payopt").forEach(function(b){b.onclick=function(){form.name=$("fName").value;form.phone=$("fPhone").value;form.pay=b.dataset.p;renderCart()}});
+  $("fName").oninput=function(e){form.name=e.target.value};$("fPhone").oninput=function(e){form.phone=e.target.value};
+  var cp=$("cp");if(cp)cp.onclick=function(){try{navigator.clipboard.writeText(INSTAPAY);cp.textContent="تم ✓"}catch(e){cp.textContent=INSTAPAY}};
+  $("clear").onclick=function(){if(confirm("إفراغ السلة؟")){cart=[];saveCart();updateFab();renderView();renderCart()}};
+  $("send").onclick=function(){
+    form.name=$("fName").value.trim();form.phone=$("fPhone").value.trim();
+    if(form.name.length<2||form.phone.replace(/\D/g,"").length<8){alert("من فضلك اكتب الاسم ورقم موبايل صحيح");return}
+    var r=calc(),lines=r.items.map(function(x,i){return (i+1)+") "+x.c.title+" — "+MODES[x.mode].label+(x.free?" — هدية 🎁":"")});
+    var msg="السلام عليكم، عايز أسجل في "+ACADEMY+":\n\nالاسم: "+form.name+"\nالموبايل: "+form.phone+"\n\nالكورسات:\n"+lines.join("\n")+
+      (r.nFree?"\n\nمعايا "+r.nFree+" مادة هدية ضمن عرض مادتين ومادة هدية.":"")+
+      "\nطريقة الدفع: "+(form.pay==="insta"?"انستاباي ("+INSTAPAY+") — هبعت صورة التحويل":"كاش")+
+      "\n\nمستني تأكيد الأسعار والتفاصيل.";
+    if(r.items.some(function(x){return x.mode==="center"}))msg+="\nمكان الحضور: "+CENTER;
+    window.open(wa(msg),"_blank","noopener");
+  };
+}
+
+updateFab();renderView();
+</script>
+</body>
+</html>
